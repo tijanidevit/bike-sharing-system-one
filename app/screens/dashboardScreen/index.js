@@ -6,12 +6,12 @@ import { globalConstants } from "../../constants";
 import {
   Categories,
   Header,
-  LatestPost,
-  TopPost
+  RecentRides,
+  TopBikes
 } from "../../components/PostCategory";
 import { globalStyles } from "../../shared/globalStyles";
 
-const HomePostCategory = ({ navigation, route }) => {
+const DashboardScreen = ({ navigation, route }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Layout
@@ -22,15 +22,15 @@ const HomePostCategory = ({ navigation, route }) => {
         ]}
       >
         <Header />
-        <Categories
+        {/* <Categories
           activeCategoryId={route.params ? route.params.id : 1}
           navigation={navigation}
-        />
-        <TopPost
+        /> */}
+        <TopBikes
           categoryId={route.params ? route.params.id : 1}
           navigation={navigation}
         />
-        <LatestPost
+        <RecentRides
           categoryId={route.params ? route.params.id : 1}
           navigation={navigation}
         />
@@ -38,4 +38,4 @@ const HomePostCategory = ({ navigation, route }) => {
     </SafeAreaView>
   );
 };
-export default HomePostCategory;
+export default DashboardScreen;

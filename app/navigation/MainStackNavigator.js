@@ -32,6 +32,13 @@ export const MainStackNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={screenOptionStyle}>
+
+      <Stack.Screen
+          name="HomeScreen"
+          component={HomeScreen}
+          options={{ headerShown: false }}
+        />
+        
         <Stack.Screen
           name="SplashScreen"
           component={SplashScreen}
@@ -49,11 +56,7 @@ export const MainStackNavigator = () => {
           options={{ headerShown: false }}
         />
 
-<Stack.Screen
-          name="HomeScreen"
-          component={HomeScreen}
-          options={{ headerShown: false }}
-        />
+
         {/* 
 
         

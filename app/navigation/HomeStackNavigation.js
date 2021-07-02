@@ -2,7 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { globalConstants } from "../constants";
 
-import HomePostCategory from "../screens/homePostCategory";
+import DashboardScreen from "../screens/dashboardScreen";
 import Article from "../screens/articleScreen";
 
 import { screenOptionStyle } from "./screenOptionStyle";
@@ -19,8 +19,8 @@ export const HomeStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
       <Stack.Screen
-        name="HomePostCategory"
-        component={HomePostCategory}
+        name="DashboardScreen"
+        component={DashboardScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen

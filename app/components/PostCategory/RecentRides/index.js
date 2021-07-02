@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, Layout, Icon } from "@ui-kitten/components";
+import { Text, Layout} from "@ui-kitten/components";
 import {
   Image,
   StyleSheet,
@@ -9,38 +9,32 @@ import {
 } from "react-native";
 import { globalStyles } from "../../../shared/globalStyles";
 import {
-  Flexidink,
-  loginScreenBg,
-  splashScreenBg
+  bikeOne
 } from "../../../shared/generalAssets";
 import { globalConstants } from "../../../constants";
 
-const articleList = [
+const bikeList = [
   {
-    name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
-    image: splashScreenBg
-  },
-  {
-    name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
-    image: loginScreenBg
-  },
-  {
-    name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
-    image: Flexidink
-  },
-  {
-    name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
-    image: Flexidink
-  },
-  {
-    name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
-    image: Flexidink
+    name: "Yellow Red Bike",
+    date: "15/03/2021",
+    image: bikeOne,
+    timeSpent: "15 minutes"
+  },{
+    name: "Yellow Red Bike",
+    date: "15/03/2021",
+    image: bikeOne,
+    timeSpent: "15 minutes"
+  },{
+    name: "Yellow Red Bike",
+    date: "15/03/2021",
+    image: bikeOne,
+    timeSpent: "15 minutes"
   }
 ];
 
-export const LatestPost = ({ navigation }) => {
+export const RecentRides = ({ navigation }) => {
   const viewLandMarkDetails = () => {
-    navigation.navigate("Article");
+    navigation.navigate("RideDetails");
   };
   return (
     <View style={globalStyles.mt30}>
@@ -51,7 +45,7 @@ export const LatestPost = ({ navigation }) => {
           styles.heading
         ]}
       >
-        Latest Posts
+        Recent Rides
       </Text>
       <ScrollView
         style={{
@@ -59,7 +53,7 @@ export const LatestPost = ({ navigation }) => {
           paddingHorizontal: 10
         }}
       >
-        {articleList.map((article, index) => (
+        {bikeList.map((bike, index) => (
           <TouchableWithoutFeedback onPress={viewLandMarkDetails} key={index}>
             <Layout
               style={[
@@ -69,13 +63,16 @@ export const LatestPost = ({ navigation }) => {
               ]}
               level="1"
             >
-              <Image source={article.image} style={styles.thumb}></Image>
+              <View  style={[styles.thumbArea, globalStyles.centerCenter, globalStyles.bgWhite]}>
+              <Image source={bike.image}  style={styles.thumb}></Image>
+              </View>
 
               <View style={[styles.caption, globalStyles.justifySpaceBetween]}>
                 <Text style={[globalStyles.textGray, styles.title]}>
-                  {article.name}
+                  {bike.name}
                 </Text>
-                <Text style={styles.small}>15 minutes ago</Text>
+                <Text style={styles.small}> {bike.date}</Text>
+                <Text style={styles.small}> {bike.timeSpent} ride</Text>
               </View>
             </Layout>
           </TouchableWithoutFeedback>
@@ -89,13 +86,16 @@ const styles = StyleSheet.create({
   itemBox: {
     borderRadius: 5,
     marginVertical: 10,
-    minHeight: 100,
+    minHeight: 80,
     paddingVertical: 10
   },
-  thumb: {
-    width: "30%",
+  thumbArea: {
+    width:'30%',
     height: "auto",
-    borderRadius: 10
+  },
+  thumb: {
+    width: '100%',
+    height: 50
   },
   caption: {
     paddingHorizontal: 10

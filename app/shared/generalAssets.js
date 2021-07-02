@@ -7,6 +7,9 @@ import animBikeOne from "../assets/images/bike-01.gif";
 import altAnimatedLogo from "../assets/images/logo-intro2.gif";
 // Dummy
 import Flexidink from "../assets/images/dummy/flexidink.jpg";
+import bikeOne from "../assets/images/bikes/1.png";
+import bikeTwo from "../assets/images/bikes/2.jpg";
+import bikeThree from "../assets/images/bikes/3.jpg";
 
 export {
     splashScreenBg,
@@ -16,5 +19,8 @@ export {
     primaryLogo,
     animatedLogo,
     altAnimatedLogo,
-    animBikeOne
+    animBikeOne,
+    bikeOne,
+    bikeTwo,
+    bikeThree
 };
