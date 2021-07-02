@@ -5,6 +5,7 @@ class users_model extends CI_Model
     {
         $this->load->database();
         $this->load->model('fn_model');
+        $this->load->model('bikes_model');
         $this->status_code  = get_response_status_code();
     }
 
@@ -97,8 +98,7 @@ class users_model extends CI_Model
 
         if ($bookings) {
             foreach ($bookings as $booking) {
-                $booking = $this->fn_model->get_user_booking($booking->booking_id);
-                $booking->booking = $booking;
+                $booking->bike = $this->fn_model->get_bike($booking->bike_id);
             }
 
             return $bookings;
@@ -108,7 +108,17 @@ class users_model extends CI_Model
 
 
     public function add_user_booking($data){
-        if ($this->db->insert('user_bookings',$data)) {
+        if ($this->db->insert('bookings',$data)) {
+            $this->update_bike_status(['status' => 0 , 'id' => $data['bike_id'] ]);
+            return true;
+        }
+        return false;
+    }
+
+    public function update_bike_status($data)
+    {
+        $update_bike_status = $this->db->update('bikes',$data,['id' => $data['id']]);
+        if ($update_bike_status) {
             return true;
         }
         return false;

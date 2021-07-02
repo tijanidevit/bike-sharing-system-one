@@ -95,7 +95,7 @@ class Users extends REST_Controller
         }
     }
 
-    function bookings_get($user_id = '')
+    function bookings_get($user_id)
     {
         if ($user_id) {
             $user_bookings = $this->users_model->get_user_bookings($user_id);
@@ -131,7 +131,17 @@ class Users extends REST_Controller
         $data = [
             'user_id' => $this->input->post('user_id'),
             'bike_id' => $this->input->post('bike_id'),
+            'code' => rand(11111111,99999999)
         ];
+
+        $bike = $this->fn_model->get_bike($data['bike_id']);
+        if ($bike['status'] == 0) {
+            return $this->response([
+                'status' => "error",
+                'message' => "This bike is not available.",
+                'status_code' => $this->status_code['ok'],
+            ], $this->status_code['ok']);
+        }
 
         $booking = $this->users_model->add_user_booking($data);
         if (!$booking) {
