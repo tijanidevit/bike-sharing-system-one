@@ -8,9 +8,6 @@ import SplashScreen from "../screens/spashScreen/";
 import LoginScreen from "../screens/loginScreen/";
 import RegisterScreen from "../screens/RegisterScreen";
 import HomeScreen from "../screens/homeScreen/";
-// import HomePostCategory from "../screens/homePostCategory";
-// import Article from "../screens/articleScreen";
-// import About from "../screens/aboutScreen";
 
 const Stack = createStackNavigator();
 
@@ -33,11 +30,7 @@ export const MainStackNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={screenOptionStyle}>
 
-      <Stack.Screen
-          name="HomeScreen"
-          component={HomeScreen}
-          options={{ headerShown: false }}
-        />
+      
         
         <Stack.Screen
           name="SplashScreen"
@@ -56,33 +49,11 @@ export const MainStackNavigator = () => {
           options={{ headerShown: false }}
         />
 
-
-        {/* 
-
-        
-
-       
-
-        <Stack.Screen
-          name="HomePostCategory"
-          component={HomePostCategory}
+<Stack.Screen
+          name="HomeScreen"
+          component={HomeScreen}
           options={{ headerShown: false }}
         />
-
-        <Stack.Screen
-          name="Article"
-          component={Article}
-          options={{ headerShown: false }}
-        />
-
-        <Stack.Screen
-          name="About"
-          component={About}
-          options={{
-            title: "About ",
-            ...lightHeader
-          }}
-        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
