@@ -94,120 +94,31 @@ class Users extends REST_Controller
             ], $this->status_code['internalServerError']);
         }
     }
-    function profile_get($friconn_id = '')
+
+    function bookings_get($user_id = '')
     {
-        if (!$friconn_id) {
-            $users = $this->users_model->get_users();
-            return $this->response([
-                'status' => "success",
-                'message' => "users fetched successfully.",
-                'status_code' => $this->status_code['ok'],
-                'data' => $users
-            ], $this->status_code['ok']);
-        }
-        else{
-            $user = $this->users_model->get_user($friconn_id);
-            if ($user == null) {
+        if ($user_id) {
+            $user_bookings = $this->users_model->get_user_bookings($user_id);
+            if ($user_bookings == null) {
                 return $this->response([
                     'status' => "error",
-                    'message' => "user not found or not a user.",
+                    'message' => "You have no bookings.",
                     'status_code' => $this->status_code['ok'],
-                    'data' => $user
                 ], $this->status_code['ok']);
             }
             return $this->response([
                 'status' => "success",
-                'message' => "user fetched successfully.",
+                'message' => "Your bookings fetched successfully.",
                 'status_code' => $this->status_code['ok'],
-                'data' => $user
+                'data' => $user_bookings
             ], $this->status_code['ok']);
         }
     }
-    function profile_post()
+
+    function bookings_post()
     {
-        $this->form_validation->set_rules('friconn_id', 'Friconn ID', 'required');
-        $this->form_validation->set_rules('dob', 'Date of birth', 'required');
-        $this->form_validation->set_rules('phone', 'Phone Number', 'required');
-        $this->form_validation->set_rules('institution_id', 'Institution', 'required');
-        $this->form_validation->set_rules('department_id', 'department_id', 'required');
-        if ($this->form_validation->run() === FALSE) {
-            return $this->response([
-                'status' => "failed",
-                'message' => "All inputs are required.",
-                'status_code' => $this->status_code['badRequest'],
-                'data' => []
-            ], $this->status_code['badRequest']);
-        }
-
-        $profile = [
-            'friconn_id' => $this->input->post('friconn_id'),
-            'dob' => $this->input->post('dob'),
-            'phone' => $this->input->post('phone'),
-            "institution_id" => $this->input->post('institution_id'),
-            "department_id" => $this->input->post('department_id'),
-        ];
-
-        $user = $this->fn_model->get_user_via_friconn_id($profile['friconn_id']);
-        $role_id = $this->fn_model->get_user_role_id('user');
-
-        if (! $user ) {
-            return $this->response([
-                'status' => "error",
-                'message' => "user not found.",
-                'status_code' => $this->status_code['ok'],
-            ], $this->status_code['ok']);
-        }
-
-        if ($user['role_id'] != $role_id) {
-            return $this->response([
-                'status' => "error",
-                'message' => "User not a user.",
-                'status_code' => $this->status_code['unauthorized'],
-            ], $this->status_code['unauthorized']);
-        }
-
-        if ($this->users_model->update_user_profile($profile)) {
-            return $this->response([
-                'status' => "success",
-                'message' => "user profile updated successfully.",
-                'status_code' => $this->status_code['ok'],
-                'data' => $user
-            ], $this->status_code['ok']);
-        }
-
-        return $this->response([
-            'status' => "error",
-            'message' => "Unable to update user profile.",
-            'status_code' => $this->status_code['badRequest'],
-            'data' => $user
-        ], $this->status_code['badRequest']);
-
-
-    }
-
-    function points_get($friconn_id)
-    {
-        $user_points = $this->users_model->get_user_points($friconn_id);
-        if ($user_points == null) {
-            return $this->response([
-                'status' => "error",
-                'message' => "Unable to fetch user points.",
-                'status_code' => $this->status_code['ok'],
-            ], $this->status_code['ok']);
-        }
-        return $this->response([
-            'status' => "success",
-            'message' => "user points fetched successfully.",
-            'status_code' => $this->status_code['ok'],
-            'data' => $user_points
-        ], $this->status_code['ok']);
-    }
-
-    function points_post()
-    {
-
-        $this->form_validation->set_rules('friconn_id', 'Friconn ID', 'required');
-        $this->form_validation->set_rules('points', 'Points', 'required');
+        $this->form_validation->set_rules('user_id', 'user ID', 'required');
+        $this->form_validation->set_rules('bike_id', 'bike_id', 'required');
         if ($this->form_validation->run() === FALSE) {
             return $this->response([
                 'status' => "failed",
@@ -218,136 +129,37 @@ class Users extends REST_Controller
         }
 
         $data = [
-            'friconn_id' => $this->input->post('friconn_id'),
-            'points' => $this->input->post('points')
+            'user_id' => $this->input->post('user_id'),
+            'bike_id' => $this->input->post('bike_id'),
         ];
-        $user = $this->users_model->get_user($data['friconn_id']);
-        if ($user == null) {
+        
+        if ($this->users_model->check_user_booking($data)) {
             return $this->response([
                 'status' => "error",
-                'message' => "user not found or not an user.",
-                'status_code' => $this->status_code['ok']
-            ], $this->status_code['ok']);
-        }
-
-        $user_points = $this->users_model->update_user_points($data);
-        if (! $user_points) {
-            return $this->response([
-                'status' => "error",
-                'message' => "user points not updated.",
-                'status_code' => $this->status_code['badRequest'],
-            ], $this->status_code['badRequest']);
-        }
-        return $this->response([
-            'status' => "success",
-            'message' => "user points updated successfully.",
-            'status_code' => $this->status_code['ok'],
-            'data' => $user_points
-        ], $this->status_code['ok']);
-    }
-
-    function courses_get($friconn_id = '')
-    {
-        if ($friconn_id) {
-            $user_courses = $this->users_model->get_user_courses($friconn_id);
-            if ($user_courses == null) {
-                return $this->response([
-                    'status' => "error",
-                    'message' => "user has no course added.",
-                    'status_code' => $this->status_code['ok'],
-                ], $this->status_code['ok']);
-            }
-            return $this->response([
-                'status' => "success",
-                'message' => "user courses fetched successfully.",
-                'status_code' => $this->status_code['ok'],
-                'data' => $user_courses
-            ], $this->status_code['ok']);
-        }
-        else{
-            $user_courses = $this->users_model->get_users_courses($friconn_id);
-            if ($user_courses == null) {
-                return $this->response([
-                    'status' => "error",
-                    'message' => "users have no courses added.",
-                    'status_code' => $this->status_code['ok'],
-                ], $this->status_code['ok']);
-            }
-            return $this->response([
-                'status' => "success",
-                'message' => "users courses fetched successfully.",
-                'status_code' => $this->status_code['ok'],
-                'data' => $user_courses
-            ], $this->status_code['ok']);
-        }
-    }
-
-    function courses_post()
-    {
-        $this->form_validation->set_rules('friconn_id', 'Friconn ID', 'required');
-        $this->form_validation->set_rules('course_id', 'course_id', 'required');
-        if ($this->form_validation->run() === FALSE) {
-            return $this->response([
-                'status' => "failed",
-                'message' => "All inputs are required.",
-                'status_code' => $this->status_code['badRequest'],
-                'data' => []
-            ], $this->status_code['badRequest']);
-        }
-
-        $data = [
-            'friconn_id' => $this->input->post('friconn_id'),
-            'course_id' => $this->input->post('course_id'),
-        ];
-
-
-        $role_id = $this->fn_model->get_user_role_id('user');
-        $user = $this->fn_model->get_user_via_friconn_id($data['friconn_id']);
-
-        if ($user['role_id'] !== $role_id) {
-            return $this->response([
-                'status' => "error",
-                'message' => "User not a user.",
-                'status_code' => $this->status_code['unauthorized'],
-            ], $this->status_code['unauthorized']);
-        }
-
-
-        if (! $this->fn_model->get_user_course($data['course_id'])) {
-            return $this->response([
-                'status' => "error",
-                'message' => "Course does not exist.",
-                'status_code' => $this->status_code['ok'],
-            ], $this->status_code['ok']);
-        }
-
-        if ($this->users_model->check_user_course($data)) {
-            return $this->response([
-                'status' => "error",
-                'message' => "user already added this course.",
+                'message' => "user already added this booking.",
                 'status_code' => $this->status_code['conflict'],
             ], $this->status_code['conflict']);
         }
-        $course = $this->users_model->add_user_course($data);
-        if (!$course) {
+        $booking = $this->users_model->add_user_booking($data);
+        if (!$booking) {
             return $this->response([
                 'status' => "error",
-                'message' => "user course not added.",
+                'message' => "user booking not added.",
                 'status_code' => $this->status_code['internalServerError'],
             ], $this->status_code['internalServerError']);
         }
 
         return $this->response([
             'status' => "success",
-            'message' => "user course added successfully.",
+            'message' => "user booking added successfully.",
             'status_code' => $this->status_code['created'],
-            'data' => $course
+            'data' => $booking
         ], $this->status_code['created']);
     }
 
-    function questions_get($friconn_id)
+    function questions_get($user_id)
     {
-        $user_questions = $this->users_model->get_user_questions($friconn_id);
+        $user_questions = $this->users_model->get_user_questions($user_id);
         if ($user_questions == null) {
             return $this->response([
                 'status' => "error",
@@ -364,9 +176,9 @@ class Users extends REST_Controller
 
     }
 
-    function answers_get($friconn_id)
+    function answers_get($user_id)
     {
-        $user_answers = $this->users_model->get_user_answers($friconn_id);
+        $user_answers = $this->users_model->get_user_answers($user_id);
         if ($user_answers == null) {
             return $this->response([
                 'status' => "error",
@@ -383,10 +195,10 @@ class Users extends REST_Controller
 
     }
 
-    // function plans_get($friconn_id = '')
+    // function plans_get($user_id = '')
     // {
-    //     if ($friconn_id) {
-    //         $user_plans = $this->users_model->get_user_plans($friconn_id);
+    //     if ($user_id) {
+    //         $user_plans = $this->users_model->get_user_plans($user_id);
     //         if ($user_plans == null) {
     //             return $this->response([
     //                 'status' => "error",
@@ -402,7 +214,7 @@ class Users extends REST_Controller
     //         ], $this->status_code['ok']);
     //     }
     //     else{
-    //         $user_plans = $this->users_model->get_users_plans($friconn_id);
+    //         $user_plans = $this->users_model->get_users_plans($user_id);
     //         if ($user_plans == null) {
     //             return $this->response([
     //                 'status' => "error",
@@ -421,7 +233,7 @@ class Users extends REST_Controller
 
     // function plans_post()
     // {
-    //     $this->form_validation->set_rules('friconn_id', 'Friconn ID', 'required');
+    //     $this->form_validation->set_rules('user_id', 'user ID', 'required');
     //     $this->form_validation->set_rules('plan_id', 'plan_id', 'required');
     //     $this->form_validation->set_rules('points', 'points', 'required');
     //     if ($this->form_validation->run() === FALSE) {
@@ -434,14 +246,14 @@ class Users extends REST_Controller
     //     }
 
     //     $data = [
-    //         'friconn_id' => $this->input->post('friconn_id'),
+    //         'user_id' => $this->input->post('user_id'),
     //         'plan_id' => $this->input->post('plan_id'),
     //         'points' => $this->input->post('points'),
     //     ];
 
 
     //     $role_id = $this->fn_model->get_user_role_id('user');
-    //     $user = $this->fn_model->get_user_via_friconn_id($data['friconn_id']);
+    //     $user = $this->fn_model->get_user_via_user_id($data['user_id']);
 
     //     if ($user['role_id'] !== $role_id) {
     //         return $this->response([
@@ -469,11 +281,11 @@ class Users extends REST_Controller
     //         ], $this->status_code['internalServerError']);
     //     }
 
-    //     $old_points = $this->fn_model->get_user_points($data['friconn_id']);
+    //     $old_points = $this->fn_model->get_user_points($data['user_id']);
     //     $new_points = $data['points'];
 
     //     $points = $old_points + $new_points;
-    //     $update_data = ['friconn_id' => $data['friconn_id'], 'points'=> $points];
+    //     $update_data = ['user_id' => $data['user_id'], 'points'=> $points];
 
     //     $plan['new_points'] = $this->fn_model->update_user_points($update_data);
 
@@ -485,10 +297,10 @@ class Users extends REST_Controller
     //     ], $this->status_code['created']);
     // }
 
-    function payments_get($friconn_id)
+    function payments_get($user_id)
     {
-        if ($friconn_id) {
-            $user_payments = $this->users_model->get_user_payments($friconn_id);
+        if ($user_id) {
+            $user_payments = $this->users_model->get_user_payments($user_id);
             if ($user_payments == null) {
                 return $this->response([
                     'status' => "error",
@@ -506,7 +318,7 @@ class Users extends REST_Controller
         else{            
             return $this->response([
                 'status' => "error",
-                'message' => "Friconn ID required.",
+                'message' => "user ID required.",
                 'status_code' => $this->status_code['badRequest'],
             ], $this->status_code['badRequest']);
         }

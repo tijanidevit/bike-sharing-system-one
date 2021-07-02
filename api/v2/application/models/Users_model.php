@@ -10,13 +10,13 @@ class users_model extends CI_Model
 
     public function get_login_info($credentials)
     {
-        $this->db->where(["email" => $credentials['email']]);
+        $this->db->where(["matric_number" => $credentials['matric_number']]);
         $user = $this->db->get('users')->row_array();
 
         if (!$user) {
             return array(
                 'status' => "error",
-                'message' => "Invalid email address",
+                'message' => "Unknown matric number",
                 'status_code' => $this->status_code['unauthorized']
             );
         }
@@ -29,38 +29,11 @@ class users_model extends CI_Model
             );
         }
 
-        if (!$this->fn_model->match_user_with_role($user['role_id'], 'user')) {
-            return array(
-                'status' => "error",
-                'message' => "Access Denied! Please login through the right user account.",
-                'status_code' => $this->status_code['unauthorized']
-            );
-        }
-
-
-        if ($user['blocked'] === 1) {
-            return array(
-                'status' => "error",
-                'message' => "Access Denied! This account is temporarily blocked, please contact our support centre.",
-                'status_code' => $this->status_code['forbidden']
-            );
-        }
-        $user_details = $this->_get_user_details($user['friconn_id']);
-
-        if ($user['approved'] === 0) {
-            return array(
-                'status' => "success",
-                'message' => "One more step to go, please verify your email address.",
-                'status_code' => $this->status_code['ok'],
-                'data' => array_merge($user, $user_details)
-            );
-        }
-
         return array(
             'status' => "success",
             'message' => "Login successful.",
             'status_code' => $this->status_code['ok'],
-            'data' => array_merge($user, $user_details)
+            'data' => $user
         );
     }
 
@@ -135,7 +108,7 @@ class users_model extends CI_Model
     public function get_users(){
         $role_id = $this->fn_model->get_user_role_id('user');
 
-        $this->db->select('friconn_id,role_id,last_name,other_names,email,profile_image,created_at');
+        $this->db->select('*');
         $profiles = $this->db->get_where('users',['role_id' => $role_id])->result();
         foreach ($profiles as $profile) {
             $profile->profile = $this->_get_user_details($profile->friconn_id);
@@ -145,12 +118,12 @@ class users_model extends CI_Model
 
     public function get_user($friconn_id){
         $role_id = $this->fn_model->get_user_role_id('user');
-        $this->db->select('friconn_id,role_id,last_name,other_names,email,profile_image,created_at');
+        $this->db->select('*');
         $user = $this->db->get_where('users',['friconn_id' => $friconn_id,'role_id' => $role_id])->row_array();
 
         if ($user['role_id'] == $role_id) {
             $user_details = $this->_get_user_details($friconn_id);
-            return array_merge($user, $user_details);
+            return $user;
         }
         return null;
     }
