@@ -75,7 +75,7 @@ class users_model extends CI_Model
                         'status' => "success",
                         'message' => "Registration Completed.",
                         'status_code' => $this->status_code['created'],
-                        'data' => array_merge($user, $other_details)
+                        'data' => $user
                     );
                 } 
                 else {
