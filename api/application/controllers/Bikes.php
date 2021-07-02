@@ -7,7 +7,6 @@ class Bikes extends REST_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('bikes_model');
         $this->load->model('fn_model');
         $this->status_code  = get_response_status_code();
         $this->load->library('form_validation');
