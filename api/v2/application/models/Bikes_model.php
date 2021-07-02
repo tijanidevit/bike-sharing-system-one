@@ -68,20 +68,19 @@ class bikes_model extends CI_Model
         return $bikes;
     }
 
-    public function get_bike($bike_id){
-        $role_id = $this->fn_model->get_bike_role_id('bike');
+    public function get_bike($id){
         $this->db->select('*');
-        $bike = $this->db->get_where('bikes',['bike_id' => $bike_id,'status' => 1])->row_array();
+        $bike = $this->db->get_where('bikes',['id' => $id,'status' => 1])->row_array();
 
         if ($bike) {
-            $bike['bookings'] = $this->_get_bike_bookings($bike_id);
+            $bike['bookings'] = $this->_get_bike_bookings($id);
             return $bike;
         }
         return null;
     }
 
     public function _get_bike_bookings($bike_id){
-        $this->db->select('bookings');
+        $this->db->select('*');
         $bookings = $this->db->get_where('bookings',['bike_id' => $bike_id])->result();
 
         if ($bookings) {
