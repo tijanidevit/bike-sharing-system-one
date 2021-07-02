@@ -14,6 +14,7 @@ import {
   bikeOne
 } from "../../../shared/generalAssets";
 import { globalConstants } from "../../../constants";
+import { numberWithCommas } from "../../../helpers/functions";
 
 const bikes = [
   {
@@ -59,6 +60,15 @@ export const TopBikes = ({ navigation, categoryId }) => {
   };
   return (
     <View>
+      <Text
+      style={[
+        globalStyles.fontAltBold,
+        globalStyles.textBold,
+        styles.heading
+      ]}
+    >
+      Top Bikes
+    </Text>
       <ScrollView
         horizontal={true}
         showsHorizontalScrollIndicator={false}
@@ -92,7 +102,7 @@ export const TopBikes = ({ navigation, categoryId }) => {
                 >
                   {bike.name}
                 </Text>
-                <Text style={globalStyles.textSmall}>&#8358; {bike.price}</Text>
+                <Text style={globalStyles.textSmall}>&#8358; {numberWithCommas(bike.price)}</Text>
               </View>
             </Layout>
           </TouchableWithoutFeedback>
@@ -110,6 +120,7 @@ const styles = StyleSheet.create({
     marginVertical: 10
   },
   thumb: {
+    marginTop:30,
     width: "100%",
     height: 150
   },
@@ -117,15 +128,18 @@ const styles = StyleSheet.create({
     padding: 10
   },
   icon: {
-    height: 15,
-    width: 15
+    height: 10,
+    width: 10
   },
   location: {
     position: "absolute",
     top: 10,
     width: "50%",
     paddingHorizontal: 10,
-    backgroundColor: '#ccc',
-    borderRadius: 10
+    backgroundColor: '#fff',
+    borderRadius: 10,
+  },
+  heading: {
+    fontSize: 20
   }
 });

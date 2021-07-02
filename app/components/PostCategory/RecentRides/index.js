@@ -87,7 +87,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginVertical: 10,
     minHeight: 80,
-    paddingVertical: 10
+    paddingVertical: 10,
+    marginHorizontal:0.5
   },
   thumbArea: {
     width:'30%',
@@ -107,9 +108,6 @@ const styles = StyleSheet.create({
     fontSize: 11
   },
   heading: {
-    borderBottomColor: globalConstants.SECONDARY_COLOR,
-    borderBottomWidth: 5,
-    fontSize: 20,
-    borderRadius: 20
+    fontSize: 20
   }
 });
