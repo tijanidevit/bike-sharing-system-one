@@ -1,117 +1,30 @@
 import React from "react";
-import { Text, Layout} from "@ui-kitten/components";
+import { Text, Layout, Card, Divider, List, ListItem} from "@ui-kitten/components";
 import {
   Image,
   StyleSheet,
   View,
   ScrollView,
-  TouchableWithoutFeedback,
   SafeAreaView
 } from "react-native";
 import { globalStyles } from "../../shared/globalStyles";
 import {
-  bikeOne
+    userAvatar
 } from "../../shared/generalAssets";
 import { globalConstants } from "../../constants";
-
-const bikeList = [
-  {
-    name: "Yellow Red Bike",
-    date: "15/03/2021",
-    image: bikeOne,
-    timeSpent: "15 minutes"
-  },{
-    name: "Yellow Red Bike",
-    date: "15/03/2021",
-    image: bikeOne,
-    timeSpent: "15 minutes"
-  },{
-    name: "Yellow Red Bike",
-    date: "15/03/2021",
-    image: bikeOne,
-    timeSpent: "15 minutes"
-  },{
-    name: "Yellow Red Bike",
-    date: "15/03/2021",
-    image: bikeOne,
-    timeSpent: "15 minutes"
-  },{
-    name: "Yellow Red Bike",
-    date: "15/03/2021",
-    image: bikeOne,
-    timeSpent: "15 minutes"
-  },{
-    name: "Yellow Red Bike",
-    date: "15/03/2021",
-    image: bikeOne,
-    timeSpent: "15 minutes"
-  },{
-    name: "Yellow Red Bike",
-    date: "15/03/2021",
-    image: bikeOne,
-    timeSpent: "15 minutes"
-  },{
-    name: "Yellow Red Bike",
-    date: "15/03/2021",
-    image: bikeOne,
-    timeSpent: "15 minutes"
-  },{
-    name: "Yellow Red Bike",
-    date: "15/03/2021",
-    image: bikeOne,
-    timeSpent: "15 minutes"
-  },{
-    name: "Yellow Red Bike",
-    date: "15/03/2021",
-    image: bikeOne,
-    timeSpent: "15 minutes"
-  },{
-    name: "Yellow Red Bike",
-    date: "15/03/2021",
-    image: bikeOne,
-    timeSpent: "15 minutes"
-  },{
-    name: "Yellow Red Bike",
-    date: "15/03/2021",
-    image: bikeOne,
-    timeSpent: "15 minutes"
-  },{
-    name: "Yellow Red Bike",
-    date: "15/03/2021",
-    image: bikeOne,
-    timeSpent: "15 minutes"
-  },{
-    name: "Yellow Red Bike",
-    date: "15/03/2021",
-    image: bikeOne,
-    timeSpent: "15 minutes"
-  },{
-    name: "Yellow Red Bike",
-    date: "15/03/2021",
-    image: bikeOne,
-    timeSpent: "15 minutes"
-  },{
-    name: "Yellow Red Bike",
-    date: "15/03/2021",
-    image: bikeOne,
-    timeSpent: "15 minutes"
-  },{
-    name: "Yellow Red Bike",
-    date: "15/03/2021",
-    image: bikeOne,
-    timeSpent: "15 minutes"
-  },{
-    name: "Yellow Red Bike",
-    date: "15/03/2021",
-    image: bikeOne,
-    timeSpent: "15 minutes"
-  }
-];
+import { numberWithCommas } from "../../helpers/functions";
 
  const Profile = ({ navigation }) => {
   const ViewBikeDetails = () => {
     navigation.navigate("BikeDetails");
   };
+
+   const renderItem = ({ item, index }) => (
+    <ListItem
+      title={`${item.title} ${index + 1}`}
+      description={`${item.description} ${index + 1}`}
+    />
+  );
   return (
     <SafeAreaView style={{flex:1}}> 
      <Layout
@@ -122,45 +35,22 @@ const bikeList = [
         ]}
       >
       <View style={globalStyles.mt30}>
-      <Text
-        style={[
-          globalStyles.fontAltBold,
-          globalStyles.textBold,
-          styles.heading
-        ]}
-      >
-        All Bikes
-      </Text>
       <ScrollView
         style={{
           height: (90 / 100) * globalConstants.SCREEN_HEIGHT,
           paddingHorizontal: 10
         }}
       >
-        {bikeList.map((bike, index) => (
-          <TouchableWithoutFeedback onPress={ViewBikeDetails} key={index}>
-            <Layout
-              style={[
-                styles.itemBox,
-                globalStyles.shadowBox,
-                globalStyles.flexRow
-              ]}
-              level="1"
-            >
-              <View  style={[styles.thumbArea, globalStyles.centerCenter, globalStyles.bgWhite]}>
-              <Image source={bike.image}  style={styles.thumb}></Image>
-              </View>
-
-              <View style={[styles.caption, globalStyles.justifySpaceBetween]}>
-                <Text style={[globalStyles.textGray, styles.title]}>
-                  {bike.name}
-                </Text>
-                <Text style={styles.small}> {bike.date}</Text>
-                <Text style={styles.small}> {bike.timeSpent} ride</Text>
-              </View>
-            </Layout>
-          </TouchableWithoutFeedback>
-        ))}
+      
+        <Card>   
+            <View style={globalStyles.centerCenter}>
+                <Image source={userAvatar}  style={styles.profileImage}></Image>
+            </View>
+             <Text style={styles.item} category="h6">Balance: &#8358; {numberWithCommas(3000)}</Text>
+             <Text style={styles.item} category="s1">Fullname: Ismail Obadimu</Text>
+            <Text style={styles.item} category="s1">Matric Number: Ismail Obadimu</Text>
+            <Text style={[styles.item,{borderBottomWidth:0}]} category="s1">Phone Number: Ismail Obadimu</Text>
+        </Card>
       </ScrollView>
     </View>
     </Layout>
@@ -195,5 +85,15 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 20
+  },
+  item:{
+      paddingVertical:15,
+      borderBottomColor: '#ccc',
+      borderBottomWidth:1
+  },
+  profileImage:{
+      height:100,
+      width: 100,
+      borderRadius: 50
   }
 });

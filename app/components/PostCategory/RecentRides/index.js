@@ -4,8 +4,7 @@ import {
   Image,
   StyleSheet,
   View,
-  ScrollView,
-  TouchableWithoutFeedback
+  ScrollView
 } from "react-native";
 import { globalStyles } from "../../../shared/globalStyles";
 import {
@@ -54,7 +53,6 @@ export const RecentRides = ({ navigation }) => {
         }}
       >
         {bikeList.map((bike, index) => (
-          <TouchableWithoutFeedback onPress={viewLandMarkDetails} key={index}>
             <Layout
               style={[
                 styles.itemBox,
@@ -75,7 +73,6 @@ export const RecentRides = ({ navigation }) => {
                 <Text style={styles.small}> {bike.timeSpent} ride</Text>
               </View>
             </Layout>
-          </TouchableWithoutFeedback>
         ))}
       </ScrollView>
     </View>
