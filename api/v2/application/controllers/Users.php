@@ -7,7 +7,7 @@ class Users extends REST_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Users_model');
+        $this->load->model('users_model');
         $this->load->model('fn_model');
         $this->status_code  = get_response_status_code();
         $this->load->library('form_validation');
@@ -73,23 +73,23 @@ class Users extends REST_Controller
                     "password" => encrypt($this->input->post('password'))
                 );
 
-                if ($this->fn_model->check_user_matric_number($details['matric_number'])) {
+                if ($this->users_model->check_user_matric_number($details['matric_number'])) {
                     $this->response([
                         'status' => 'error',
-                        'message' => 'Hey! The matric_number is already associated with another account.',
+                        'message' => 'Hey! The matric number is already associated with another account.',
                         'status_code' => $this->status_code['forbidden']
                     ], $this->status_code['forbidden']);
                 } 
                 else {
                     $response = $this->users_model->create_account($details);
+                    $this->response($response, $response['status_code']);
                 }
-                $this->response($response, $response['status_code']);
             }
         }
         catch (\Throwable $th) {
             $this->response([
                 'status' => 'error',
-                'message' => "Opps! The server has encountered a temporary error. Please try again later",
+                'message' => "Opps! The server has encountered a temporary error. Please try again later.",
                 'status_code' => $this->status_code['internalServerError']
             ], $this->status_code['internalServerError']);
         }

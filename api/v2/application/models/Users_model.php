@@ -64,11 +64,24 @@ class users_model extends CI_Model
         );
     }
 
+
+    public function check_user_matric_number($matric_number)
+    {
+
+        $this->db->where("matric_number", $matric_number);
+        $matric_numberCheck = $this->db->get('users');
+        if ($matric_numberCheck->num_rows() > 0) {
+            return true;
+        }
+        return false;
+    }
+
     public function create_account($details)
     {
+
         try {
             if ($this->db->insert('users', $details)) {
-                $this->db->where(["matric_no" => $details['matric_no']]);
+                $this->db->where(["matric_number" => $details['matric_number']]);
                 $user = $this->db->get('users')->row_array();
                 if ($user) {
                     return array(
@@ -98,7 +111,7 @@ class users_model extends CI_Model
         catch (\Throwable $th) {
             return array(
                 'status' => "error",
-                'message' => "Opps! The server has encountered a temporary error. Please try again later",
+                'message' => $th,
                 'status_code' => $this->status_code['internalServerError']
             );
         };

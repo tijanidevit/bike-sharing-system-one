@@ -33,16 +33,6 @@ class Fn_model extends CI_Model
             return 0;
         }
     }
-    public function check_user_email($email)
-    {
-
-        $this->db->where("email", $email);
-        $emailCheck = $this->db->get('users');
-        if ($emailCheck->num_rows() > 0) {
-            return true;
-        }
-        return false;
-    }
 
     public function get_user_via_email($email)
     {
