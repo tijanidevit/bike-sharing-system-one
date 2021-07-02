@@ -3,7 +3,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { globalConstants } from "../constants";
 
 import DashboardScreen from "../screens/dashboardScreen";
-import Article from "../screens/articleScreen";
+import AllBikes from "../screens/allBikes";
+import BikeDetailsScreen from "../screens/bikeDetailsScreen";
 
 import { screenOptionStyle } from "./screenOptionStyle";
 
@@ -24,8 +25,18 @@ export const HomeStackNavigator = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Article"
-        component={Article}
+        name="AllBikes"
+        component={AllBikes}
+        options={{
+          title: "",
+          ...lightHeader
+        }}
+      />
+
+      
+<Stack.Screen
+        name="BikeDetails"
+        component={BikeDetailsScreen}
         options={{
           title: "",
           ...lightHeader

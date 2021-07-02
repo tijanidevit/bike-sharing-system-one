@@ -9,15 +9,15 @@ import {
 import { HomeStackNavigator } from "../../navigation/HomeStackNavigation";
 import { globalConstants } from "../../constants";
 import { globalStyles } from "../../shared/globalStyles";
-import { GistStackNavigator } from "../../navigation";
-import About from "../aboutScreen";
+import AboutScreen from "../aboutScreen";
+import ProfileScreen from "../profile";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
 const HomeIcon = (props) => (
   <Icon {...props} fill={globalConstants.PRIMARY_COLOR} name="home-outline" />
 );
-const GistsIcon = (props) => (
+const ProfileIcon = (props) => (
   <Icon
     {...props}
     fill={globalConstants.PRIMARY_COLOR}
@@ -49,7 +49,7 @@ const BottomTabBar = ({ navigation, state }) => (
     onSelect={(index) => navigation.navigate(state.routeNames[index])}
   >
     <BottomNavigationTab title={() => tabTitle("Home")} icon={HomeIcon} />
-    <BottomNavigationTab title={() => tabTitle("Gists")} icon={GistsIcon} />
+    <BottomNavigationTab title={() => tabTitle("Profile")} icon={ProfileIcon} />
     <BottomNavigationTab title={() => tabTitle("About")} icon={AboutIcon} />
   </BottomNavigation>
 );
@@ -57,8 +57,8 @@ const BottomTabBar = ({ navigation, state }) => (
 const Home = () => (
   <Navigator tabBar={(props) => <BottomTabBar {...props} />}>
     <Screen name="Home" component={HomeStackNavigator} />
-    <Screen name="Gists" component={GistStackNavigator} />
-    <Screen name="About" component={About} />
+    <Screen name="Profile" component={ProfileScreen} />
+    <Screen name="About" component={AboutScreen} />
   </Navigator>
 );
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, Layout, Icon } from "@ui-kitten/components";
+import { Text, Layout, Icon, Button } from "@ui-kitten/components";
 import {
   Image,
   StyleSheet,
@@ -55,20 +55,28 @@ const bikes = [
 ];
 
 export const TopBikes = ({ navigation, categoryId }) => {
-  const viewLandMarkDetails = () => {
-    navigation.navigate("bike");
+  const viewBikeDetails = () => {
+    navigation.navigate("BikeDetails");
   };
+  
+const arrowIcon = (props)=>(
+  <Icon {...props} name="arrowhead-right-outline" />
+);
+
   return (
     <View>
+     <View style={[globalStyles.flexRow,globalStyles.justifySpaceBetween]}>
       <Text
-      style={[
-        globalStyles.fontAltBold,
-        globalStyles.textBold,
-        styles.heading
-      ]}
-    >
-      Top Bikes
-    </Text>
+        style={[
+          globalStyles.fontAltBold,
+          globalStyles.textBold,
+          styles.heading
+        ]}
+      >
+        Top Bikes
+      </Text>
+      <Button accessoryRight={arrowIcon} size="tiny" appearance="ghost" onPress={()=>navigation.navigate("AllBikes")}>More</Button>
+     </View>
       <ScrollView
         horizontal={true}
         showsHorizontalScrollIndicator={false}
@@ -76,7 +84,7 @@ export const TopBikes = ({ navigation, categoryId }) => {
         decelerationRate="fast"
       >
         {bikes.map((bike, index) => (
-          <TouchableWithoutFeedback onPress={viewLandMarkDetails} key={index}>
+          <TouchableWithoutFeedback onPress={viewBikeDetails} key={index}>
             <Layout style={[styles.itemBox, globalStyles.shadowBox]} level="2">
               <Image source={bike.image} style={styles.thumb}></Image>
               <View

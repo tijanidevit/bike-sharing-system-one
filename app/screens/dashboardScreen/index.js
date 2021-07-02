@@ -4,7 +4,6 @@ import { SafeAreaView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { globalConstants } from "../../constants";
 import {
-  Categories,
   Header,
   RecentRides,
   TopBikes
@@ -22,10 +21,7 @@ const DashboardScreen = ({ navigation, route }) => {
         ]}
       >
         <Header />
-        {/* <Categories
-          activeCategoryId={route.params ? route.params.id : 1}
-          navigation={navigation}
-        /> */}
+        
         <TopBikes
           categoryId={route.params ? route.params.id : 1}
           navigation={navigation}

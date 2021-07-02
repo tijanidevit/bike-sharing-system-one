@@ -1,1 +1,1 @@
-export * from "./CommentModal";
+export * from "./ConfirmPaymentModal";
