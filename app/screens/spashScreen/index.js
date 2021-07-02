@@ -2,10 +2,10 @@ import React from "react";
 import { StyleSheet, View, SafeAreaView, Image } from "react-native";
 import { globalStyles } from "../../shared/globalStyles";
 import { globalConstants } from "../../constants";
-import { altAnimatedLogo, animatedLogo } from "../../shared/generalAssets";
+import { animBikeOne, animatedLogo } from "../../shared/generalAssets";
 import { Layout, Text, Button, Icon } from "@ui-kitten/components";
 
-const StarIcon = (props) => <Icon {...props} name="arrowhead-right-outline" />;
+const arrowIcon = (props) => <Icon {...props} name="arrowhead-right-outline" />;
 
 const SplashScreen = ({ navigation }) => {
   return (
@@ -26,7 +26,7 @@ const SplashScreen = ({ navigation }) => {
           }
         ]}
       >
-        <Image source={altAnimatedLogo} style={styles.logo} />
+        <Image source={animBikeOne} style={styles.animBikeOne} />
         <View>
           <Text
             style={[
@@ -35,13 +35,27 @@ const SplashScreen = ({ navigation }) => {
               globalStyles.textSmall
             ]}
           >
-            All Gists in One Place
+            Your campus ride got easier
           </Text>
+          <View style={globalStyles.flexRow}>
           <Button
             onPress={() => {
               navigation.navigate("HomeScreen");
             }}
-            accessoryRight={StarIcon}
+            size="tiny"
+            style={[
+              globalStyles.mt30,
+              globalStyles.bgPrimary,
+              globalStyles.noBorder,
+              globalStyles.mr20
+            ]}
+          >
+            <Text style={globalStyles.textWhite}>Login</Text>
+          </Button>
+          <Button
+            onPress={() => {
+              navigation.navigate("RegisterScreen");
+            }}
             size="tiny"
             style={[
               globalStyles.mt30,
@@ -49,8 +63,9 @@ const SplashScreen = ({ navigation }) => {
               globalStyles.noBorder
             ]}
           >
-            <Text style={globalStyles.textWhite}>Continue</Text>
+            <Text style={globalStyles.textWhite}>Register</Text>
           </Button>
+          </View>
         </View>
       </Layout>
     </SafeAreaView>
@@ -60,8 +75,8 @@ const SplashScreen = ({ navigation }) => {
 export default SplashScreen;
 
 const styles = StyleSheet.create({
-  logo: {
+  animBikeOne: {
     maxWidth: (globalConstants.SCREEN_WIDTH * 70) / 100,
-    height: 100
+    height: 200
   }
 });

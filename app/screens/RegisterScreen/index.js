@@ -52,16 +52,15 @@ const Register = ({ navigation }) => {
       />
     ),
     formSchema = yup.object({
-      email: yup
-        .string("Email Address must be valid.")
-        .required("Email Address is required."),
-      username: yup
-        .string("Username must be valid.")
-        .required("Username is required."),
+      phone: yup
+        .string("Phone Numver must be valid.")
+        .required("Phone Numver is required."),
+      matricNo: yup
+        .string("Matric Number must be valid.")
+        .required("Matric Number is required."),
       fullname: yup
         .string("Fullname must be valid.")
         .required("Fullname is required."),
-      level: yup.string("Level must be valid.").required("Level is required."),
       password: yup
         .string()
         .min(3, "Password must more than 3 characters.")
@@ -123,9 +122,8 @@ const Register = ({ navigation }) => {
                 validationSchema={formSchema}
                 initialValues={{
                   fullname: "",
-                  email: "",
-                  level: "",
-                  username: "",
+                  phone: "",
+                  matricNo: "",
                   password: ""
                 }}
                 onSubmit={(details) => {
@@ -147,53 +145,37 @@ const Register = ({ navigation }) => {
                         }
                       />
                     </View>
+                    
                     <View style={[globalStyles.formGroup]}>
                       <Input
-                        label="Email Address"
-                        onChangeText={props.handleChange("email")}
-                        value={props.values.email}
-                        keyboardType="email-address"
+                        label="Matric No"
+                        onChangeText={props.handleChange("matricNo")}
+                        value={props.values.matricNo}
                         textStyle={globalStyles.textPrimary}
                         status={
-                          props.values.email == "" && props.errors.email
+                          props.values.matricNo == "" && props.errors.matricNo
                             ? "danger"
                             : "warning"
                         }
                       />
                     </View>
+                    
                     <View style={[globalStyles.formGroup]}>
                       <Input
-                        label="Username"
-                        onChangeText={props.handleChange("username")}
-                        value={props.values.username}
+                        label="Phone Number"
+                        keyboardType="phone-pad"
+                        onChangeText={props.handleChange("phone")}
+                        value={props.values.phone}
                         textStyle={globalStyles.textPrimary}
                         status={
-                          props.values.username == "" && props.errors.username
+                          props.values.phone == "" && props.errors.phone
                             ? "danger"
                             : "warning"
                         }
                       />
                     </View>
-                    <View style={[globalStyles.formGroup]}>
-                      <Select
-                        style={styles.select}
-                        label="Level"
-                        placeholder="Select Level"
-                        value={displayValue}
-                        selectedIndex={selectedLevel}
-                        onSelect={(index) => {
-                          setSelectedLevel(index);
-                          props.values.level = index.row;
-                        }}
-                        status={
-                          props.values.level == "" && props.errors.level
-                            ? "danger"
-                            : "warning"
-                        }
-                      >
-                        {levels.map(renderLevelOptions)}
-                      </Select>
-                    </View>
+                    
+
                     <View style={[globalStyles.formGroup]}>
                       <Input
                         label="Password"

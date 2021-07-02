@@ -40,9 +40,9 @@ const Login = ({ navigation }) => {
       </TouchableWithoutFeedback>
     ),
     formSchema = yup.object({
-      username: yup
-        .string("Username must be valid.")
-        .required("Username is required."),
+      matricNo: yup
+        .string("Matric Number must be valid.")
+        .required("Matric Number is required."),
       password: yup
         .string()
         .min(3, "Password must more than 3 characters.")
@@ -100,7 +100,7 @@ const Login = ({ navigation }) => {
             <Formik
               validationSchema={formSchema}
               initialValues={{
-                username: "",
+                matricNo: "",
                 password: ""
               }}
               onSubmit={(details) => {
@@ -111,12 +111,12 @@ const Login = ({ navigation }) => {
                 <>
                   <View style={[globalStyles.formGroup]}>
                     <Input
-                      label="Username"
-                      onChangeText={props.handleChange("username")}
-                      value={props.values.username}
+                      label="Matric No"
+                      onChangeText={props.handleChange("matricNo")}
+                      value={props.values.matricNo}
                       textStyle={globalStyles.textPrimary}
                       status={
-                        props.values.username == "" && props.errors.username
+                        props.values.matricNo == "" && props.errors.matricNo
                           ? "danger"
                           : "warning"
                       }

@@ -24,7 +24,6 @@ const GistsIcon = (props) => (
     name="radio-button-on-outline"
   />
 );
-
 const AboutIcon = (props) => (
   <Icon
     {...props}
