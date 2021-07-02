@@ -7,11 +7,8 @@ import {
   Icon,
   Popover,
   Spinner,
-  ButtonGroup,
   Card,
   IndexPath,
-  Select,
-  SelectGroup,
   SelectItem
 } from "@ui-kitten/components";
 import { globalStyles } from "../../shared/globalStyles";
@@ -26,7 +23,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { globalConstants } from "../../constants";
 import { ScrollView } from "react-native-gesture-handler";
-// import { login } from "../../actions/";
 
 const levels = ["Select Level", "ND I", "ND II", "HND I", "HND II"];
 

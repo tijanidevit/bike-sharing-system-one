@@ -21,10 +21,6 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { globalConstants } from "../../constants";
-import BackgroundImage from "../../components/BackgroundImage";
-import { loginScreenBg } from "../../shared/generalAssets";
-import { Header } from "../../components/PostCategory";
-// import { login } from "../../actions/";
 
 const Login = ({ navigation }) => {
   const [secureTextEntry, setSecureTextEntry] = useState(true),

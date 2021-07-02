@@ -6,11 +6,11 @@ import {
   View,
   ScrollView
 } from "react-native";
-import { globalStyles } from "../../../shared/globalStyles";
+import { globalStyles } from "../../shared/globalStyles";
 import {
   bikeOne
-} from "../../../shared/generalAssets";
-import { globalConstants } from "../../../constants";
+} from "../../shared/generalAssets";
+import { globalConstants } from "../../constants";
 
 const bikeList = [
   {
@@ -54,6 +54,7 @@ export const RecentRides = ({ navigation }) => {
       >
         {bikeList.map((bike, index) => (
             <Layout
+            key={index}
               style={[
                 styles.itemBox,
                 globalStyles.shadowBox,

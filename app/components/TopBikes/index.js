@@ -7,14 +7,14 @@ import {
   ScrollView,
   TouchableWithoutFeedback
 } from "react-native";
-import { globalStyles } from "../../../shared/globalStyles";
+import { globalStyles } from "../../shared/globalStyles";
 import {
   bikeThree,
   bikeTwo,
   bikeOne
-} from "../../../shared/generalAssets";
-import { globalConstants } from "../../../constants";
-import { numberWithCommas } from "../../../helpers/functions";
+} from "../../shared/generalAssets";
+import { globalConstants } from "../../constants";
+import { numberWithCommas } from "../../helpers/functions";
 
 const bikes = [
   {

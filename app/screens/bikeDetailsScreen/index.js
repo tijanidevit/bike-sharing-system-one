@@ -11,7 +11,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { globalConstants } from "../../constants";
 import { globalStyles } from "../../shared/globalStyles";
-import { ConfirmPaymentModal } from "../../components/Article";
+import { ConfirmPaymentModal } from "../../components/Payment";
 import HTML from "react-native-render-html";
 import { bikeOne } from "../../shared/generalAssets";
 import { numberWithCommas } from "../../helpers/functions";

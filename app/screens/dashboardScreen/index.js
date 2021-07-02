@@ -3,11 +3,9 @@ import { Layout } from "@ui-kitten/components";
 import { SafeAreaView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { globalConstants } from "../../constants";
-import {
-  Header,
-  RecentRides,
-  TopBikes
-} from "../../components/PostCategory";
+import {Header} from "../../components/Header/"
+import {RecentRides} from "../../components/RecentRides/"
+import {TopBikes} from "../../components/TopBikes/"
 import { globalStyles } from "../../shared/globalStyles";
 
 const DashboardScreen = ({ navigation, route }) => {
@@ -21,7 +19,6 @@ const DashboardScreen = ({ navigation, route }) => {
         ]}
       >
         <Header />
-        
         <TopBikes
           categoryId={route.params ? route.params.id : 1}
           navigation={navigation}
@@ -30,6 +27,9 @@ const DashboardScreen = ({ navigation, route }) => {
           categoryId={route.params ? route.params.id : 1}
           navigation={navigation}
         />
+     {/* 
+         */}
+        
       </Layout>
     </SafeAreaView>
   );
