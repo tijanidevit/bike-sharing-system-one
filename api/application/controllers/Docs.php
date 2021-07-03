@@ -19,7 +19,8 @@ class Docs extends CI_Controller
 		// 	echo 	'<script>
 		// 	window.location.href = "' . current_url() . '/view"
 		// 		  	</script>';
-		redirect("https://localhost/bike_sharing/api/docs/view");
+		redirect("
+		http://127.0.0.1/2021/bika/api/docs/view");
 	}
 
 	public function view($controller_name = null)
