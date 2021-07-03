@@ -1,7 +1,6 @@
 import React from "react";
 import { Layout } from "@ui-kitten/components";
 import { SafeAreaView } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
 import { globalConstants } from "../../constants";
 import { Header } from "../../components/Header/"
 import { RecentRides } from "../../components/RecentRides/"
