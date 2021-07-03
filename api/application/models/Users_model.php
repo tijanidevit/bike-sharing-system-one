@@ -23,6 +23,7 @@ class users_model extends CI_Model
         }
 
         if ($user['password'] !== $credentials['password']) {
+            $user['bookings_count'] = $this->get_user_bookings_count($user['id']);
             return array(
                 'status' => "error",
                 'message' => "Login failed! Incorrect account password.",
@@ -52,11 +53,11 @@ class users_model extends CI_Model
 
     public function create_account($details)
     {
-
         try {
             if ($this->db->insert('users', $details)) {
                 $this->db->where(["matric_number" => $details['matric_number']]);
                 $user = $this->db->get('users')->row_array();
+                $user['bookings_count'] = $this->get_user_bookings_count($user['id']);
                 if ($user) {
                     return array(
                         'status' => "success",
@@ -80,7 +81,6 @@ class users_model extends CI_Model
                     'status_code' => $this->status_code['internalServerError']
                 );
             }
-
         } 
         catch (\Throwable $th) {
             return array(
@@ -98,12 +98,32 @@ class users_model extends CI_Model
 
         if ($bookings) {
             foreach ($bookings as $booking) {
+
                 $booking->bike = $this->fn_model->get_bike($booking->bike_id);
+
+                if ($booking->start_time != null) {
+                    $start_time = new DateTime($booking->start_time);
+                    $return_time = new DateTime($booking->return_time);
+                    $elapsed_time = $start_time->diff($return_time);
+
+                    $minutes = $elapsed_time->days * 24 * 60;
+                    $minutes += $elapsed_time->h * 60;
+                    $minutes += $elapsed_time->i;
+                    $booking->minutes = $minutes;
+                    $booking->price = $minutes * $booking->bike['price_per_minute'];
+                }
             }
 
             return $bookings;
         }
         return null;
+    }
+
+
+    public function get_user_bookings_count($user_id){
+        $this->db->select('id');
+        $this->db->where(['user_id' => $user_id]);
+        return $this->db->order_by('id', "desc")->get('bookings')->num_rows();
     }
 
 

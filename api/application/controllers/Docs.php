@@ -19,7 +19,7 @@ class Docs extends CI_Controller
 		// 	echo 	'<script>
 		// 	window.location.href = "' . current_url() . '/view"
 		// 		  	</script>';
-		redirect("https://api.friconn.com/v2/docs/view");
+		redirect("https://localhost/bike_sharing/api/docs/view");
 	}
 
 	public function view($controller_name = null)
