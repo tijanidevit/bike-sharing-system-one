@@ -60,23 +60,4 @@ class Bikes extends REST_Controller
         }
     }
 
-    function questions_get($id)
-    {
-        $questions = $this->bikes_model->get_questions($id);
-        if ($questions == null) {
-            return $this->response([
-                'status' => "error",
-                'message' => "bike has no question added.",
-                'status_code' => $this->status_code['ok'],
-            ], $this->status_code['ok']);
-        }
-        return $this->response([
-            'status' => "success",
-            'message' => "bike questions fetched successfully.",
-            'status_code' => $this->status_code['ok'],
-            'data' => $questions
-        ], $this->status_code['ok']);
-
-    }
-
 }
