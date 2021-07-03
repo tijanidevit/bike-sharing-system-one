@@ -57,8 +57,8 @@ class users_model extends CI_Model
             if ($this->db->insert('users', $details)) {
                 $this->db->where(["matric_number" => $details['matric_number']]);
                 $user = $this->db->get('users')->row_array();
-                $user['bookings_count'] = $this->get_user_bookings_count($user['id']);
                 if ($user) {
+                    $user['bookings_count'] = $this->get_user_bookings_count($user['id']);
                     return array(
                         'status' => "success",
                         'message' => "Registration Completed.",
