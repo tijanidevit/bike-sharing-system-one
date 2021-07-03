@@ -14,7 +14,7 @@ export const convertObjToFormData = ( object ) => {
 
 export const timeSince = ( date ) => {
     const t = date.split( /[- :]/ ),
-        u = new Date( "2021-07-03T02:05:35.000Z" );
+        u = new Date( t );
     var time = new Date( Date.now() - u.getTime() );
     console.log( "date", u );
     switch ( typeof time ) {
