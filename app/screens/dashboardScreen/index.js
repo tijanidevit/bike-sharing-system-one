@@ -26,8 +26,6 @@ const DashboardScreen = ( { navigation, route } ) => {
           categoryId={route.params ? route.params.id : 1}
           navigation={navigation}
         />
-
-
       </Layout>
     </SafeAreaView>
   );
