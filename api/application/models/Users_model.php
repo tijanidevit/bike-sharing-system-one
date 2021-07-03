@@ -13,7 +13,6 @@ class users_model extends CI_Model
     {
         $this->db->where(["matric_number" => $credentials['matric_number']]);
         $user = $this->db->get('users')->row_array();
-        $user['bookings_count'] = $this->get_user_bookings_count($user['id']);
 
         if (!$user) {
             return array(
@@ -24,6 +23,7 @@ class users_model extends CI_Model
         }
 
         if ($user['password'] !== $credentials['password']) {
+            $user['bookings_count'] = $this->get_user_bookings_count($user['id']);
             return array(
                 'status' => "error",
                 'message' => "Login failed! Incorrect account password.",

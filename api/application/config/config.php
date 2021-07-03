@@ -24,7 +24,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'https://api.friconn.com/v2/';
+$config['base_url'] = 'https://localhost/bike_sharing/api';
 
 /*
 |--------------------------------------------------------------------------
